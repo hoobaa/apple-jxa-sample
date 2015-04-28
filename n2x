@@ -1,5 +1,7 @@
 #!/usr/bin/osascript -l JavaScript
 
+// Export Number's active document to the same directory as xlsx format.
+
 var nmb = Application("Numbers");
 // var doc = nmb.documents.byName("db-master-data.numbers");
 var doc = nmb.documents[0]; // 0th obj is active.

@@ -1,0 +1,40 @@
+#!/usr/bin/osascript -l JavaScript
+
+ObjC.import('Foundation');
+var args = $.NSProcessInfo.processInfo.arguments;
+var argv = [];
+var argc = args.count; // -[NSArray count]
+for (var i = 0; i < argc; i++) {
+    argv.push( ObjC.unwrap( args.objectAtIndex(i) ) ); // -[NSArray objectAtIndex:]
+}
+delete args;
+
+function listup() {
+    var nmb = Application("Numbers");
+    var doc = nmb.documents[0]; // 0th obj is active.
+    var idx = 0;
+    doc.sheets().map( function(a) {
+        console.log("%d: %s", idx++, a.name());
+    });
+}
+function select(idx) {
+    var nmb = Application("Numbers");
+    var doc = nmb.documents[0]; // 0th obj is active.
+    //  console.log(doc.sheets[idx].name());
+    doc.activeSheet = doc.sheets[idx];
+
+    listup();
+}
+if (argc == 4) { // no additional arg
+    listup();
+} else {
+    var idx = argv[4];
+    idx = parseInt(idx);
+    select(idx);
+}
+
+'';
+
+// ref: https://github.com/dtinth/JXA-Cookbook
+// ref: http://tonbi.jp/AppleScript/JavaScript/
+// ref: http://qiita.com/zakuroishikuro/items/afab0e33ad2030ba2f92
