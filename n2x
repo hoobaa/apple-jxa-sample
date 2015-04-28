@@ -1,0 +1,12 @@
+#!/usr/bin/osascript -l JavaScript
+
+var nmb = Application("Numbers");
+// var doc = nmb.documents.byName("db-master-data.numbers");
+var doc = nmb.documents[0]; // 0th obj is active.
+var path = doc.file().toString();
+path = path.replace(/\.numbers/, ".xlsx");
+doc.export( {to:Path( path ), as:"Microsoft Excel"} );
+
+// ref: https://github.com/dtinth/JXA-Cookbook
+// ref: http://tonbi.jp/AppleScript/JavaScript/
+// ref: http://qiita.com/zakuroishikuro/items/afab0e33ad2030ba2f92
